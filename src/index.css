@@ -1,13 +1,16 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+.btn {
+  @apply py-2.5 px-6 text-sm rounded-lg bg-gradient-to-r from-violet-600 to-blue-400 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-tr;
+}
+.btn-primary{
+    @apply py-2.5 px-6 text-sm rounded-full border border-solid border-purple-200 text-purple-800 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-purple-600 hover:text-white;
+}
+.input {
+    @apply block w-full h-11 px-5 py-2.5 leading-7 text-base font-normal shadow-xs text-white  border border-gray-300  placeholder-gray-400 focus:outline-none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.card {
+    @apply text-white  border-solid border-gray-200 rounded-2xl p-4 shadow-2xl border-2  transition-all duration-500 
 }
