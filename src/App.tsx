@@ -162,7 +162,7 @@ function App() {
         setLoading(true);
         setError(null);
 
-        const result = await onchainService.getElectionInfo(7);
+        const result = await onchainService.getElectionInfo(1);
 
         console.log("Election Info:", result);
         setElectionInfo(result);

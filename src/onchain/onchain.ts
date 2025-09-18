@@ -1,7 +1,7 @@
-import { SupraClient, SupraAccount, BCS, HexString } from "supra-l1-sdk";
+import { SupraClient,BCS } from "supra-l1-sdk";
 import { VOTING_CONFIG } from "./onchain_config";
 import useConversionUtils from "./useConversionUtils";
-// Define types for better type safety
+
 export interface ElectionInfo {
   election_name: string;
   is_active: boolean;
@@ -10,7 +10,6 @@ export interface ElectionInfo {
   total_votes: number;
 }
 
-// Type definition for CandidateDetails (add this to your types file)
 export interface CandidateDetails {
   candidate_id: number;
   name: string;
@@ -202,7 +201,7 @@ export class OnchainService {
     }
   }
 
-  // Get election information (View function - uses SupraClient)
+  // Get election information 
   async getElectionInfo(election_id: number): Promise<ElectionInfo> {
     try {
       const payload = {
@@ -218,8 +217,6 @@ export class OnchainService {
       );
       console.log("TEST Raw result from contract:", result);
 
-      // Parse the result based on the Move function return type
-      // (string::String, bool, option::Option<u64>, option::Option<u64>, u64)
       return {
         election_name: result[0] as string,
         is_active: result[1] as boolean,
@@ -256,15 +253,14 @@ export class OnchainService {
       );
       console.log("Election winner", result);
 
-      // Parse the result based on the Move function return type
-      // (string::String, bool, option::Option<u64>, option::Option<u64>, u64)
+  
       return {
         winner_id:
           (result[0]?.vec?.length ?? 0) > 0 ? parseInt(result[0].vec[0]) : 0,
       };
     } catch (error) {
       console.error("Error getting election info:", error);
-      // Return default info instead of throwing error for better UX
+   
       return {
         winner_id: 0,
       };
@@ -287,15 +283,13 @@ export class OnchainService {
 
       console.log("Raw result from contract:", result);
 
-      // The result is a nested array: [[{candidate1}, {candidate2}, ...]]
-      // We need to flatten it to get the actual candidates
       if (!Array.isArray(result) || result.length === 0) {
         console.log("No candidates found or invalid result structure");
         return [];
       }
 
-      // Extract candidates from the nested array structure
-      const candidatesArray = result[0]; // Get the first (and likely only) inner array
+
+      const candidatesArray = result[0]; 
 
       if (!Array.isArray(candidatesArray)) {
         console.error(
@@ -324,7 +318,6 @@ export class OnchainService {
     }
   }
 
-  // Get candidate vote count (View function - uses SupraClient)
   async getCandidateVotes(
     electionOwnerAddress: string,
     electionId: number,
@@ -350,7 +343,6 @@ export class OnchainService {
     }
   }
 
-  // Check if voter has voted (View function - uses SupraClient)
   async hasVoterVoted(
     electionOwnerAddress: string,
     electionId: number,
@@ -376,7 +368,6 @@ export class OnchainService {
     }
   }
 
-  // Check if wallet is connected
   async isWalletConnected(): Promise<boolean> {
     try {
       const provider = this.getStarkeyProvider();
@@ -387,7 +378,6 @@ export class OnchainService {
     }
   }
 
-  // Get connected wallet address
   async getConnectedAddress(): Promise<string | null> {
     try {
       const provider = this.getStarkeyProvider();
